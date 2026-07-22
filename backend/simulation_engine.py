@@ -177,6 +177,15 @@ class SimulationEngine:
         }
 
         result = evaluate_risk(state)
+        
+        # Override risk if intervention has been applied
+        if self.intervention_applied:
+            result["risk_score"] = self.current_risk.get("post_intervention_score", 14)
+            if result["risk_score"] == 0:
+                result["risk_score"] = 14
+            result["severity"] = "low"
+            result["contributing_factors"] = ["Intervention active: Zone restricted, permit held."]
+
         self.current_risk = result
 
         await self._broadcast("risk_score_updated", {
@@ -215,6 +224,11 @@ class SimulationEngine:
         }
         self.audit_log.append(result_audit)
 
+        # Immediately apply score so frontend polling doesn't bounce back to old score
+        self.current_risk["risk_score"] = max(post_score, 14)
+        self.current_risk["severity"] = "low"
+        self.current_risk["contributing_factors"] = ["Intervention active: Zone restricted, permit held."]
+
         return {
             "success": True,
             "actions_taken": [
@@ -249,8 +263,9 @@ class SimulationEngine:
         ]
         active_permits = [p for p in self.active_permits if p["status"] in ("active", "held")]
 
+        res_score = max(self.current_risk.get("risk_score", 0), 12 if not self.intervention_applied else 14)
         return {
-            "plant_risk_score": self.current_risk.get("risk_score", 0),
+            "plant_risk_score": res_score,
             "risk_severity": self.current_risk.get("severity", "low"),
             "active_permits_count": len(active_permits),
             "workers_in_elevated_zones": len(workers_at_risk),

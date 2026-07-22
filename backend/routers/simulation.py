@@ -11,9 +11,7 @@ async def start_simulation(request: Request, background_tasks: BackgroundTasks):
 
     sim.set_broadcaster(manager.broadcast)
 
-    if not sim.running:
-        asyncio.ensure_future(sim._run())
-        sim.running = True
+    sim.start()
 
     return {"status": "started", "message": "Incident simulation started. Watch plant map for changes."}
 
