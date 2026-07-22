@@ -2,7 +2,9 @@
 
 **AI-Powered Industrial Safety Intelligence Platform**
 
-Aegis Plant detects hazardous compound risk combinations across industrial operations and gives safety teams the evidence and workflow to prevent incidents before workers enter danger.
+AegisPlant is an advanced industrial plant simulation and dashboard platform designed to dynamically model, monitor, and mitigate operational risks in real-time. By aggregating various data streams—including IoT sensor readings (e.g., H₂S gas levels, ventilation flow rates), real-time worker geolocation, and active Permit-to-Work (PTW) statuses—AegisPlant computes a compound risk score using a deterministic risk engine. 
+
+It detects hazardous compound risk combinations across industrial operations and gives safety teams the evidence and workflow to prevent incidents before workers enter danger.
 
 ## 🚀 Quick Start
 
