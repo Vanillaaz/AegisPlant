@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+}
+
+/* Animations */
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+@keyframes risk-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(220, 38, 38, 0.2); border-color: rgba(220, 38, 38, 0.4); }
+  50% { box-shadow: 0 0 40px rgba(220, 38, 38, 0.5); border-color: rgba(220, 38, 38, 0.8); }
+}
+
+.animate-pulse-ring { animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+.animate-blink { animation: blink 1.2s ease-in-out infinite; }
+.animate-risk-glow { animation: risk-glow 2s ease-in-out infinite; }
+
+/* Custom Scrollbar for dark theme */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+body {
+  background-color: #020617; /* Slate 950 */
+  background-image: 
+    radial-gradient(circle at 0% 0%, rgba(30, 64, 175, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 100% 100%, rgba(153, 27, 27, 0.1) 0%, transparent 40%);
+  background-attachment: fixed;
+  color: #f8fafc;
+}
